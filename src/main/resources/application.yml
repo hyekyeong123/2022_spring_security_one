@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/securityone?useSSL=false&useUnicode=true&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: root
+    password: admin
+
+# update로 바꾸니까 에러 : Unable to build Hibernate SessionFactory; nested exception is org.hibernate.exception.JDBCConnectionException: Error accessing tables metadata
+  jpa:
+    hibernate:
+      ddl-auto: update # create - jpa가 DB를 Create할 수 있게 설정
+
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+
+  profiles:
+    include : oauth
+
+  application:
+    main:
+      allow-circular-references: true;
